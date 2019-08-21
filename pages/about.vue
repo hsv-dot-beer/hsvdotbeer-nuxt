@@ -87,7 +87,7 @@
         <hr class="my-5" />
         <p class="text-muted">
           HSV.beer is meant as a reference only and is not responsible for
-          innaccurate information.
+          inaccurate information.
         </p>
         <p class="text-muted">
           Please drink responsibly. Don't forget Lyft and Uber are available in
