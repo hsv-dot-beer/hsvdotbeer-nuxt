@@ -12,6 +12,13 @@ export const mutations = {
 }
 
 export const actions = {
+  async getActive({ commit }) {
+    await this.$axios.get('beers/?on_tap=true').then((res) => {
+      if (res.status === 200) {
+        commit('set', res.data)
+      }
+    })
+  },
   async get({ commit }) {
     await this.$axios.get('beers/').then((res) => {
       if (res.status === 200) {

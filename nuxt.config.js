@@ -31,6 +31,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [],
+  buildModules: ['@nuxtjs/vuetify'],
   /*
    ** Nuxt.js dev-modules
    */
