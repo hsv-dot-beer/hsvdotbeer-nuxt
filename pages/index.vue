@@ -7,6 +7,7 @@
       </h2>
     </div>
 
+    <md-select></md-select>
     <beer-list></beer-list>
   </div>
 </template>
