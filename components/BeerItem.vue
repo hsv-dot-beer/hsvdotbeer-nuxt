@@ -74,7 +74,7 @@
             target="_blank"
             class="btn btn-outline-primary"
           >
-            The Stem and Stein
+            Stem and Stein
           </a>
         </div>
       </div>
