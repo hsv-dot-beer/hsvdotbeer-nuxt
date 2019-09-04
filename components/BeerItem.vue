@@ -5,7 +5,7 @@
         <img :src="logo" />
       </div>
       <div class="beer-info">
-        <a class="beer-link" @click="toggle">
+        <a class="beer-link" href="#" @click="toggle">
           <h2 class="beer-name">{{ beer.name }}</h2>
         </a>
         <div class="beer-brewer">{{ beer.manufacturer.name }}</div>
@@ -18,11 +18,7 @@
         </div>
       </div>
     </div>
-    <b-collapse
-      id="beerDetails"
-      v-model="visible"
-      class="beer-details-container"
-    >
+    <b-collapse id="beerDetails" v-model="visible" class="beer-details-container">
       <div class="beer-details">
         <div class="find-it">
           <h3 class="find-it-header">Find it on tap at:</h3>
@@ -36,20 +32,10 @@
         </div>
         <div v-if="beer.untappd_url || beer.taphunter_url" class="learn-more">
           <h3 class="learn-more-header">Learn more</h3>
-          <a
-            v-if="beer.untappd_url"
-            :href="beer.untappd_url"
-            target="_blank"
-            class="btn btn-outline-primary"
-          >
+          <a v-if="beer.untappd_url" :href="beer.untappd_url" target="_blank" class="btn btn-outline-primary">
             untappd
           </a>
-          <a
-            v-if="beer.taphunter_url"
-            :href="beer.taphunter_url"
-            target="_blank"
-            class="btn btn-outline-primary"
-          >
+          <a v-if="beer.taphunter_url" :href="beer.taphunter_url" target="_blank" class="btn btn-outline-primary">
             TapHunter
           </a>
         </div>
@@ -117,33 +103,41 @@ export default {
   position: relative;
   transition: all 0.1s ease-out;
 }
+
 .beer.active {
   background: #fffbee;
-  box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2),
-    0 2px 8px 4px rgba(60, 64, 67, 0.1);
+  box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2), 0 2px 8px 4px rgba(60, 64, 67, 0.1);
   z-index: 10;
   padding: 0.5rem 0 1rem;
 }
+
 .beer:hover,
 .beer:focus-within {
   background: #fffbee;
-  box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2),
-    0 2px 8px 4px rgba(60, 64, 67, 0.1);
+  box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2), 0 2px 8px 4px rgba(60, 64, 67, 0.1);
 }
+
 .beer.active:hover,
 .beer.active:focus-within {
-  box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2),
-    0 2px 8px 4px rgba(60, 64, 67, 0.1);
+  box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2), 0 2px 8px 4px rgba(60, 64, 67, 0.1);
 }
+
 .beer-intro {
   display: flex;
   padding: 1.25rem 0 0 1rem;
 }
-.beer-link,
-.beer-link:hover {
+
+body .beer-link,
+body .beer-link:hover {
   color: #31302c;
   text-decoration: none;
+  cursor: pointer;
 }
+
+.beer-link:focus {
+  outline: none;
+}
+
 .beer-link::after {
   content: ' ';
   position: absolute;
@@ -155,6 +149,7 @@ export default {
   right: 0;
   z-index: 5;
 }
+
 .beer-info {
   flex: 1;
   min-width: 0;
@@ -164,20 +159,24 @@ export default {
   box-shadow: 0 1px 0 #ddd;
   transition: box-shadow 0s 0s ease-out;
 }
+
 .beer.active .beer-info,
 .beer:hover .beer-info {
   box-shadow: none;
   transition: box-shadow 0s ease-out;
 }
+
 li.beer:last-of-type .beer-info {
   box-shadow: none;
 }
+
 .beer-logo {
   overflow: hidden;
   float: left;
   width: 4rem;
   min-width: 4rem;
   height: 4rem;
+  margin-bottom: 1.25rem;
   margin-right: 1rem;
   transition: all 0.1s ease-out;
   border: 1px solid #ddd;
@@ -197,43 +196,50 @@ li.beer:last-of-type .beer-info {
   height: auto;
   object-fit: cover;
 }
+
 .beer-name,
-beer-brewer,
+.beer-brewer,
 .beer-style {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .beer-name {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0rem;
   margin-top: -0.075rem;
   padding-right: 32px;
   font-family: 'Oswald', sans-serif;
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   line-height: 1.3;
 }
+
 .beer-brewer {
-  font-size: 1.125rem;
   line-height: 125%;
-  margin-bottom: -0.125rem;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
 }
+
 .beer-style {
   font-size: 0.85rem;
   color: #606060;
 }
+
 .beer-style:before {
   content: ' ';
   background: #e5e5e5;
   display: inline-block;
   width: 0.625rem;
   height: 0.625rem;
-  margin-right: 0.375rem;
+  margin-right: 0.125rem;
   border-radius: 50%;
 }
+
 .beer-abv:before {
   content: ' - ';
 }
+
 .beer.active .beer-name,
 .beer.active .beer-brewer,
 .beer.active .beer-style {
@@ -281,6 +287,7 @@ beer-brewer,
 .find-it {
   padding-right: 0.5rem;
 }
+
 .find-it-list li a,
 .find-it-list li {
   padding: 0.25rem 0;
@@ -293,12 +300,19 @@ beer-brewer,
 .find-it-header,
 .learn-more-header {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
 }
+
+.find-it-header {
+  margin-bottom: 0;
+}
+
 .find-it-list {
   list-style-type: none;
   padding-left: 0;
 }
+
 .collapsing {
   transition: height 0.1s ease-out;
 }
