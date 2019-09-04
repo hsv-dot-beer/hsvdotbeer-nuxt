@@ -34,16 +34,7 @@
             </li>
           </ul>
         </div>
-        <div
-          v-if="
-            beer.untappd_url ||
-              beer.taphunter_url ||
-              stemAndSteinUrl ||
-              beer.rate_beer_url ||
-              beer.beer_advocate_url
-          "
-          class="learn-more"
-        >
+        <div v-if="hasUrl" class="learn-more">
           <h3 class="learn-more-header">Learn more</h3>
           <a
             v-if="beer.untappd_url"
@@ -144,6 +135,15 @@ export default {
         )
       }
       return undefined
+    },
+    hasUrl() {
+      return (
+        this.beer.untappd_url ||
+        this.beer.taphunter_url ||
+        this.stemAndSteinUrl ||
+        this.beer.rate_beer_url ||
+        this.beer.beer_advocate_url
+      )
     }
   },
   methods: {
