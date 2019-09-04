@@ -29,6 +29,9 @@ export default {
   },
   computed: {
     logo() {
+      if (this.venue.logo_url) {
+        return this.venue.logo_url
+      }
       return '/img/beernotfound.jpg'
     }
   },
