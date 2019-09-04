@@ -70,7 +70,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    vendor: ['vue-material'],
     extend(config, ctx) {}
   },
   server: {
