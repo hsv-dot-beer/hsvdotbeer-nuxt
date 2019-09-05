@@ -26,12 +26,7 @@
             </li>
           </ul>
         </div>
-        <div
-          v-if="
-            beer.untappd_url || beer.taphunter_url || stemAndSteinUrl || beer.rate_beer_url || beer.beer_advocate_url
-          "
-          class="learn-more"
-        >
+        <div v-if="hasUrl" class="learn-more">
           <h3 class="learn-more-header">Learn more</h3>
           <a v-if="beer.untappd_url" :href="beer.untappd_url" target="_blank" class="btn btn-outline-primary">
             Untappd
@@ -51,7 +46,7 @@
             BeerAdvocate
           </a>
           <a v-if="stemAndSteinUrl" :href="stemAndSteinUrl" target="_blank" class="btn btn-outline-primary">
-            The Stem and Stein
+            Stem and Stein
           </a>
         </div>
       </div>
@@ -118,6 +113,15 @@ export default {
         return 'https://thestemandstein.com/Home/BeerDetails/' + this.beer.stem_and_stein_pk
       }
       return undefined
+    },
+    hasUrl() {
+      return (
+        this.beer.untappd_url ||
+        this.beer.taphunter_url ||
+        this.stemAndSteinUrl ||
+        this.beer.rate_beer_url ||
+        this.beer.beer_advocate_url
+      )
     }
   },
   methods: {
