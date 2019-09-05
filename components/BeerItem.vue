@@ -9,13 +9,11 @@
           <h2 class="beer-name">{{ beer.name }}</h2>
         </a>
         <div class="beer-brewer">{{ beer.manufacturer.name }}</div>
-        <div v-if="beer.style" class="beer-style srm" :style="styleCss">
-          {{ beer.style.name }}
+        <div class="beer-style srm" :style="styleCss">
+          {{ styleName }}
           <span v-if="abvFixed" class="beer-abv">{{ abvFixed }}%</span>
         </div>
-        <div v-if="rating !== null && rating >= 0.1" class="beer-rating">
-          {{ rating }}
-        </div>
+        <div v-if="rating !== null && rating >= 0.1" class="beer-rating">{{ rating }}</div>
       </div>
     </div>
     <b-collapse id="beerDetails" v-model="visible" class="beer-details-container">
@@ -24,16 +22,14 @@
           <h3 class="find-it-header">Find it on tap at:</h3>
           <ul class="find-it-list">
             <li v-for="place of beer.venues" :key="place.id">
-              <a target="_blank" :href="place.website">
-                {{ place.name }}
-              </a>
+              <a target="_blank" :href="place.website">{{ place.name }}</a>
             </li>
           </ul>
         </div>
         <div v-if="beer.untappd_url || beer.taphunter_url" class="learn-more">
           <h3 class="learn-more-header">Learn more</h3>
           <a v-if="beer.untappd_url" :href="beer.untappd_url" target="_blank" class="btn btn-outline-primary">
-            untappd
+            Untappd
           </a>
           <a v-if="beer.taphunter_url" :href="beer.taphunter_url" target="_blank" class="btn btn-outline-primary">
             TapHunter
@@ -70,7 +66,16 @@ export default {
       return this.beer.logo_url ? this.beer.logo_url : '/img/beernotfound.jpg'
     },
     styleCss() {
-      return { '--background-color': this.beer.color_srm_html }
+      if (this.beer.color_srm_html) {
+        return { '--background-color': this.beer.color_srm_html }
+      }
+      return {}
+    },
+    styleName() {
+      if (this.beer.style) {
+        return this.beer.style.name
+      }
+      return 'Unknown'
     },
     rating() {
       if (this.beer.untappd_metadata) {
