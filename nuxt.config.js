@@ -60,7 +60,7 @@ export default {
     baseURL: 'https://dev.hsv.beer/api/v1/'
   },
   bootstrapVue: {
-    componentPlugins: ['LayoutPlugin', 'ImagePlugin', 'CollapsePlugin']
+    componentPlugins: ['LayoutPlugin', 'ImagePlugin', 'CollapsePlugin', 'LinkPlugin']
   },
   googleAnalytics: {
     id: 'UA-133963028-1'
