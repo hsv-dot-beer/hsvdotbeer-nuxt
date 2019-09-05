@@ -18,8 +18,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href:
-          '//fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,700,400italic|Material+Icons'
+        href: '//fonts.googleapis.com/css?family=Montserrat:400,500|Oswald:500|Material+Icons'
       }
     ]
   },
@@ -30,7 +29,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [{ src: 'vue-material/dist/vue-material.min.css', lang: 'css' }],
+  css: [{ src: '~/assets/css/drawer.css', lang: 'css' }],
   /*
    ** Plugins to load before mounting the App
    */
@@ -50,7 +49,8 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/google-analytics'
   ],
   /*
    ** Axios module configuration
@@ -59,6 +59,9 @@ export default {
   axios: {
     baseURL: 'https://dev.hsv.beer/api/v1/'
   },
+  googleAnalytics: {
+    id: 'UA-133963028-1'
+  },
   /*
    ** Build configuration
    */
@@ -66,10 +69,9 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    vendor: ['vue-material'],
     extend(config, ctx) {}
   },
   server: {
-    port: (process.env.PORT || 8000)
+    port: process.env.PORT || 8000
   }
 }
