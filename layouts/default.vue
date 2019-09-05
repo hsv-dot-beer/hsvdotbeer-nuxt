@@ -1,18 +1,5 @@
 <template>
   <div class="page-container">
-    <md-drawer :md-active.sync="showNavigation">
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link" href="/" @click="showNavigation = false">Beers</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/venues" @click="showNavigation = false">Venues</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about" @click="showNavigation = false">About</a>
-        </li>
-      </ul>
-    </md-drawer>
     <div class="header">
       <div class="container-fluid container-header">
         <nav class="navbar navbar-expand-md navbar">

@@ -33,7 +33,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/vue-material' }],
+  plugins: [],
   /*
    ** Nuxt.js dev-modules
    */
