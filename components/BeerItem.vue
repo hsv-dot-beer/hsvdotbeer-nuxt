@@ -48,30 +48,6 @@
           <a v-if="stemAndSteinUrl" :href="stemAndSteinUrl" target="_blank" class="btn btn-outline-primary">
             Stem and Stein
           </a>
-          <a
-            v-if="beer.rate_beer_url"
-            :href="beer.rate_beer_url"
-            target="_blank"
-            class="btn btn-outline-primary"
-          >
-            RateBeer
-          </a>
-          <a
-            v-if="beer.beer_advocate_url"
-            :href="beer.beer_advocate_url"
-            target="_blank"
-            class="btn btn-outline-primary"
-          >
-            BeerAdvocate
-          </a>
-          <a
-            v-if="stemAndSteinUrl"
-            :href="stemAndSteinUrl"
-            target="_blank"
-            class="btn btn-outline-primary"
-          >
-            Stem and Stein
-          </a>
         </div>
       </div>
     </b-collapse>
