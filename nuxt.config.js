@@ -59,6 +59,9 @@ export default {
   axios: {
     baseURL: 'https://dev.hsv.beer/api/v1/'
   },
+  bootstrapVue: {
+    componentPlugins: ['LayoutPlugin', 'ImagePlugin', 'CollapsePlugin']
+  },
   googleAnalytics: {
     id: 'UA-133963028-1'
   },
