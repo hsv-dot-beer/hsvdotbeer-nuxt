@@ -5,7 +5,7 @@
         <img :src="logo" />
       </div>
       <div class="venue-info">
-        <nuxt-link :to="venue.slug">
+        <nuxt-link :to="venue.slug" class="venue-link">
           <h2 class="venue-name">{{ venue.name }}</h2>
         </nuxt-link>
       </div>
@@ -107,6 +107,7 @@ li.venue:last-of-type .venue-info {
   width: 4rem;
   min-width: 4rem;
   height: 4rem;
+  margin-bottom: 1.25rem;
   margin-right: 1rem;
   transition: all 0.1s ease-out;
   border: 1px solid #ddd;
@@ -124,8 +125,6 @@ li.venue:last-of-type .venue-info {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.venue-name {
   margin-bottom: 0.25rem;
   margin-top: -0.075rem;
   padding-right: 32px;
@@ -133,5 +132,6 @@ li.venue:last-of-type .venue-info {
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.3;
+  text-decoration: none;
 }
 </style>
