@@ -28,11 +28,7 @@
         </div>
         <div
           v-if="
-            beer.untappd_url ||
-              beer.taphunter_url ||
-              stemAndSteinUrl ||
-              beer.rate_beer_url ||
-              beer.beer_advocate_url
+            beer.untappd_url || beer.taphunter_url || stemAndSteinUrl || beer.rate_beer_url || beer.beer_advocate_url
           "
           class="learn-more"
         >
@@ -43,12 +39,7 @@
           <a v-if="beer.taphunter_url" :href="beer.taphunter_url" target="_blank" class="btn btn-outline-primary">
             TapHunter
           </a>
-          <a
-            v-if="beer.rate_beer_url"
-            :href="beer.rate_beer_url"
-            target="_blank"
-            class="btn btn-outline-primary"
-          >
+          <a v-if="beer.rate_beer_url" :href="beer.rate_beer_url" target="_blank" class="btn btn-outline-primary">
             RateBeer
           </a>
           <a
@@ -59,12 +50,7 @@
           >
             BeerAdvocate
           </a>
-          <a
-            v-if="stemAndSteinUrl"
-            :href="stemAndSteinUrl"
-            target="_blank"
-            class="btn btn-outline-primary"
-          >
+          <a v-if="stemAndSteinUrl" :href="stemAndSteinUrl" target="_blank" class="btn btn-outline-primary">
             The Stem and Stein
           </a>
         </div>
@@ -129,10 +115,7 @@ export default {
     },
     stemAndSteinUrl() {
       if (this.beer.stem_and_stein_pk) {
-        return (
-          'https://thestemandstein.com/Home/BeerDetails/' +
-          this.beer.stem_and_stein_pk
-        )
+        return 'https://thestemandstein.com/Home/BeerDetails/' + this.beer.stem_and_stein_pk
       }
       return undefined
     }
