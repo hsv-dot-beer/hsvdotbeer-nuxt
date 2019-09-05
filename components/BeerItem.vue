@@ -22,7 +22,7 @@
           <h3 class="find-it-header">Find it on tap at:</h3>
           <ul class="find-it-list">
             <li v-for="place of beer.venues" :key="place.id">
-              <a target="_blank" :href="place.website">{{ place.name }}</a>
+              <b-link target="_blank" rel="noreferrer" :href="place.website">{{ place.name }}</b-link>
             </li>
           </ul>
         </div>
