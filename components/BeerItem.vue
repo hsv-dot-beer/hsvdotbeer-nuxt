@@ -5,7 +5,7 @@
         <img :src="logo" />
       </div>
       <div class="beer-info">
-        <a class="beer-link" href="#" @click="toggle">
+        <a class="beer-link" href="javascript:;" @click="toggle">
           <h2 class="beer-name">{{ beer.name }}</h2>
         </a>
         <div class="beer-brewer">{{ beer.manufacturer.name }}</div>
