@@ -39,6 +39,10 @@ export default {
     openModal (venue) {
       this.$store.commit('SHOW_MODAL', venue)
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    this.$store.commit('HIDE_MODAL')
+    next()
   }
 }
 </script>
