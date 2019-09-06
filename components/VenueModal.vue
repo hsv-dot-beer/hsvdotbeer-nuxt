@@ -1,0 +1,194 @@
+<template>
+  <b-modal id="venue-modal" v-model="showModal" centered hide-footer>
+    <template slot="default">
+      <section class="venue">
+        <div class="venue-logo-title">
+          <img class="venue-logo" :src="venue.logo_url" alt />
+          <h1 class="venue-title">{{ venue.name }}</h1>
+        </div>
+        <div class="venue-info">
+          <address class="venue-address">
+            {{ venue.address }}
+            <br />
+            {{ venue.city }} {{ venue.state }} {{ venue.postal_code }}
+            <br />
+            <b-link
+              class="venue-gmap"
+              :href="`https://maps.google.com/?q=${venue.address}, ${venue.city}, ${venue.state}, ${venue.postal_code}`"
+              target="_blank"
+            >
+              View on Map
+            </b-link>
+          </address>
+          <div class="venue-contact">
+            <b-link v-if="venue.website" class="venue-website" :href="venue.website" target="_blank">
+              {{ venue.website }}
+            </b-link>
+            <b-link v-if="venue.email" class="venue-email" :href="`mailto:${venue.email}`">
+              {{ venue.email }}
+            </b-link>
+            <b-link v-if="venue.phone_number" class="venue-phone" :href="`tel:${venue.phone_number}`">
+              {{ venue.phone_number }}
+            </b-link>
+          </div>
+          <div class="venue-social">
+            <b-link v-if="venue.untappd_url" class="btn venue-untappd" :href="venue.untappd_url" target="_blank">
+              <b-img src="~/assets/social/untappd.svg" />
+              <span>Untappd</span>
+            </b-link>
+            <b-link v-if="venue.facebook_page" class="btn venue-facebook" :href="venue.facebook_page" target="_blank">
+              <b-img src="~/assets/social/facebook.svg" />
+              <span>Facebook</span>
+            </b-link>
+            <b-link
+              v-if="venue.instagram_handle"
+              class="btn venue-instagram"
+              :href="`https://instagram.com/${venue.instagram_handle}`"
+              target="_blank"
+            >
+              <b-img src="~/assets/social/instagram.svg" />
+              <span>Instagram</span>
+            </b-link>
+            <b-link
+              v-if="venue.twitter_handle"
+              class="btn venue-twitter"
+              :href="`https://twitter.com/${venue.twitter_handle}`"
+              target="_blank"
+            >
+              <b-img src="~/assets/social/twitter.svg" />
+              <span>Twitter</span>
+            </b-link>
+          </div>
+        </div>
+      </section>
+    </template>
+  </b-modal>
+</template>
+
+<script>
+export default {
+  name: 'VenueModal',
+  props: {
+    venue: {
+      type: Object,
+      default: () => {}
+    },
+    show: Boolean
+  },
+  computed: {
+    showModal: {
+      get() {
+        return this.show
+      },
+      set(val) {
+        this.$emit('update:show', val)
+      }
+    }
+  }
+}
+</script>
+
+<style>
+.modal-venue .modal-body {
+  padding-top: 0;
+}
+
+.venue-logo {
+  width: 64px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.venue-title {
+  font-size: 1.75rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+}
+.venue-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+.venue-address,
+.venue-contact,
+.venue-social {
+  flex: 1 1 33.333%;
+  min-width: 240px;
+}
+
+.venue-taps {
+  flex: 1 1 100%;
+}
+
+.venue-address,
+.venue-website,
+.venue-email,
+.venue-phone {
+  display: block;
+  position: relative;
+  padding: 0.25rem 0 0.25rem 1.5rem;
+}
+
+.venue-address:before,
+.venue-website:before,
+.venue-email:before,
+.venue-phone:before {
+  width: 1rem;
+  height: 1rem;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0.375rem;
+  opacity: 0.7;
+}
+
+.venue-address:before {
+  content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/69546/placeholder.svg);
+}
+
+.venue-website:before {
+  content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/69546/internet.svg);
+}
+
+.venue-email:before {
+  content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/69546/mail.svg);
+}
+
+.venue-phone:before {
+  content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/69546/telephone.svg);
+}
+
+.venue-social {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  margin-top: 1.5rem;
+}
+
+.venue-social a {
+  padding: 0.5rem;
+  opacity: 0.6;
+  border-radius: 4px;
+}
+
+.venue-social a:hover {
+  background: #e5e5e5;
+  opacity: 1;
+}
+
+.venue-social a span {
+  max-width: 0;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0;
+  transition: max-width 0.2s ease 0.05s, margin 0.2s ease 0.05s;
+}
+
+.venue-social img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+</style>

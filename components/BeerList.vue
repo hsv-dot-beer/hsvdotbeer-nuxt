@@ -3,27 +3,32 @@
     <ul id="beer-list">
       <beer-item v-for="beer in beers" :key="beer.id" :beer="beer" />
     </ul>
+    <venue-modal :show="showModal" :venue="currentVenue" @update:show="showModal = $event"/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import BeerItem from '~/components/BeerItem'
+import VenueModal from '~/components/VenueModal'
 
 export default {
   components: {
-    BeerItem
+    BeerItem,
+    VenueModal
   },
   data () {
     return {
-      bottom: false
+      bottom: false,
+      showModal: true
     }
   },
   computed: {
     ...mapState({
       next: state => state.beers.links.next,
       beerCount: state => state.beers.count,
-      beers: state => state.beers.records
+      beers: state => state.beers.records,
+      currentVenue: state => state.venues.records[0]
     })
   },
   watch: {
