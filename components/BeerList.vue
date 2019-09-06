@@ -3,7 +3,7 @@
     <ul id="beer-list">
       <beer-item v-for="beer in beers" :key="beer.id" :beer="beer" />
     </ul>
-    <venue-modal :show="showModal" :venue="currentVenue" @update:show="showModal = $event"/>
+    <venue-modal :show="showModal" :venue="currentVenue" @update:show="showModal = $event" />
   </div>
 </template>
 

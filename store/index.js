@@ -1,5 +1,5 @@
 export const actions = {
-  nuxtServerInit({ dispatch }, context) {
+  nuxtServerInit ({ dispatch }, context) {
     dispatch('venues/load', context)
   }
 }

@@ -3,17 +3,19 @@
     <template slot="default">
       <section class="venue">
         <div class="venue-logo-title">
-          <img class="venue-logo" :src="venue.logo_url" alt />
-          <h1 class="venue-title">{{ venue.name }}</h1>
+          <img class="venue-logo" :src="venue.logo_url" alt>
+          <h1 class="venue-title">
+            {{ venue.name }}
+          </h1>
         </div>
         <div class="venue-info">
           <div class="row">
             <div class="col col-sm-6">
               <address class="venue-address">
                 {{ venue.address }}
-                <br />
+                <br>
                 {{ venue.city }} {{ venue.state }} {{ venue.postal_code }}
-                <br />
+                <br>
                 <b-link
                   class="venue-gmap"
                   :href="
@@ -85,10 +87,10 @@ export default {
   },
   computed: {
     showModal: {
-      get() {
+      get () {
         return this.show
       },
-      set(val) {
+      set (val) {
         this.$emit('update:show', val)
       }
     }
