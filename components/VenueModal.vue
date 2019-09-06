@@ -16,20 +16,14 @@
                 <br>
                 {{ venue.city }} {{ venue.state }} {{ venue.postal_code }}
                 <br>
-                <b-link
-                  class="venue-gmap"
-                  :href="
-                    `https://maps.google.com/?q=${venue.address}, ${venue.city}, ${venue.state}, ${venue.postal_code}`
-                  "
-                  target="_blank"
-                >
+                <b-link class="venue-gmap" :href="mapsUrl" target="_blank">
                   View on Map
                 </b-link>
               </address>
             </div>
             <div class="col col-sm-6">
               <div class="venue-contact">
-                <b-link v-if="venue.website" class="venue-website" :href="venue.website" target="_blank">
+                <b-link v-if="venue.website" class="venue-website" :href="venue.website" target="_blank" rel="noreferrer">
                   {{ venue.website }}
                 </b-link>
                 <b-link v-if="venue.email" class="venue-email" :href="`mailto:${venue.email}`">
@@ -42,29 +36,19 @@
             </div>
           </div>
           <div class="venue-social">
-            <b-link v-if="venue.untappd_url" class="btn venue-untappd" :href="venue.untappd_url" target="_blank">
+            <b-link v-if="untappd" class="btn venue-untappd" :href="untappd" target="_blank" rel="noreferrer">
               <b-img src="~/assets/social/untappd.svg" />
               <span>Untappd</span>
             </b-link>
-            <b-link v-if="venue.facebook_page" class="btn venue-facebook" :href="venue.facebook_page" target="_blank">
+            <b-link v-if="facebook" class="btn venue-facebook" :href="facebook" target="_blank" rel="noreferrer">
               <b-img src="~/assets/social/facebook.svg" />
               <span>Facebook</span>
             </b-link>
-            <b-link
-              v-if="venue.instagram_handle"
-              class="btn venue-instagram"
-              :href="`https://instagram.com/${venue.instagram_handle}`"
-              target="_blank"
-            >
+            <b-link v-if="instagram" class="btn venue-instagram" :href="instagram" target="_blank" rel="noreferrer">
               <b-img src="~/assets/social/instagram.svg" />
               <span>Instagram</span>
             </b-link>
-            <b-link
-              v-if="venue.twitter_handle"
-              class="btn venue-twitter"
-              :href="`https://twitter.com/${venue.twitter_handle}`"
-              target="_blank"
-            >
+            <b-link v-if="twitter" class="btn venue-twitter" :href="twitter" target="_blank" rel="noreferrer">
               <b-img src="~/assets/social/twitter.svg" />
               <span>Twitter</span>
             </b-link>
@@ -93,6 +77,29 @@ export default {
       set (val) {
         this.$emit('update:show', val)
       }
+    },
+    mapsUrl () {
+      return `https://maps.google.com/?q=${this.venue.address}, ${this.venue.city}, ${this.venue.state}, ${this.venue.postal_code}`
+    },
+    facebook () {
+      return this.venue.facebook_page
+    },
+    instagram () {
+      let ret = null
+      if (this.venue.instagram_handle) {
+        ret = `https://instagram.com/${this.venue.instagram_handle}`
+      }
+      return ret
+    },
+    twitter () {
+      let ret = null
+      if (this.venue.twitter_handle) {
+        ret = `https://twitter.com/${this.venue.twitter_handle}`
+      }
+      return ret
+    },
+    untappd () {
+      return this.venue.untappd_url
     }
   }
 }
