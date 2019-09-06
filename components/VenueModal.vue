@@ -7,29 +7,37 @@
           <h1 class="venue-title">{{ venue.name }}</h1>
         </div>
         <div class="venue-info">
-          <address class="venue-address">
-            {{ venue.address }}
-            <br />
-            {{ venue.city }} {{ venue.state }} {{ venue.postal_code }}
-            <br />
-            <b-link
-              class="venue-gmap"
-              :href="`https://maps.google.com/?q=${venue.address}, ${venue.city}, ${venue.state}, ${venue.postal_code}`"
-              target="_blank"
-            >
-              View on Map
-            </b-link>
-          </address>
-          <div class="venue-contact">
-            <b-link v-if="venue.website" class="venue-website" :href="venue.website" target="_blank">
-              {{ venue.website }}
-            </b-link>
-            <b-link v-if="venue.email" class="venue-email" :href="`mailto:${venue.email}`">
-              {{ venue.email }}
-            </b-link>
-            <b-link v-if="venue.phone_number" class="venue-phone" :href="`tel:${venue.phone_number}`">
-              {{ venue.phone_number }}
-            </b-link>
+          <div class="row">
+            <div class="col col-sm-6">
+              <address class="venue-address">
+                {{ venue.address }}
+                <br />
+                {{ venue.city }} {{ venue.state }} {{ venue.postal_code }}
+                <br />
+                <b-link
+                  class="venue-gmap"
+                  :href="
+                    `https://maps.google.com/?q=${venue.address}, ${venue.city}, ${venue.state}, ${venue.postal_code}`
+                  "
+                  target="_blank"
+                >
+                  View on Map
+                </b-link>
+              </address>
+            </div>
+            <div class="col col-sm-6">
+              <div class="venue-contact">
+                <b-link v-if="venue.website" class="venue-website" :href="venue.website" target="_blank">
+                  {{ venue.website }}
+                </b-link>
+                <b-link v-if="venue.email" class="venue-email" :href="`mailto:${venue.email}`">
+                  {{ venue.email }}
+                </b-link>
+                <b-link v-if="venue.phone_number" class="venue-phone" :href="`tel:${venue.phone_number}`">
+                  {{ venue.phone_number }}
+                </b-link>
+              </div>
+            </div>
           </div>
           <div class="venue-social">
             <b-link v-if="venue.untappd_url" class="btn venue-untappd" :href="venue.untappd_url" target="_blank">
@@ -89,8 +97,18 @@ export default {
 </script>
 
 <style>
-.modal-venue .modal-body {
-  padding-top: 0;
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-header .close {
+  position: absolute;
+  right: 1rem;
+  z-index: 1041;
+}
+
+.modal-body {
+  margin-top: -1rem;
 }
 
 .venue-logo {
@@ -104,12 +122,14 @@ export default {
   font-size: 1.75rem;
   text-align: center;
   margin-bottom: 2rem;
-  margin-top: 0.5rem;
+  padding-top: 0.25rem;
 }
+
 .venue-info {
   display: flex;
   flex-wrap: wrap;
 }
+
 .venue-address,
 .venue-contact,
 .venue-social {
@@ -190,5 +210,12 @@ export default {
 .venue-social img {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .venue-social a:hover span {
+    max-width: 100px;
+    margin-left: 0.5rem;
+  }
 }
 </style>
