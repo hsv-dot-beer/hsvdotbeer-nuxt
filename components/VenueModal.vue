@@ -1,6 +1,6 @@
 <template>
   <b-modal id="venue-modal" v-model="showModal" centered hide-footer>
-    <template slot="default">
+    <template v-if="venue" slot="default">
       <section class="venue">
         <div class="venue-logo-title">
           <img class="venue-logo" :src="venue.logo_url" alt>
@@ -60,22 +60,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'VenueModal',
-  props: {
-    venue: {
-      type: Object,
-      default: () => {}
-    },
-    show: Boolean
-  },
   computed: {
+    ...mapState({
+      show: state => state.show_modal,
+      venue: state => state.modal_venue
+    }),
     showModal: {
       get () {
         return this.show
       },
       set (val) {
-        this.$emit('update:show', val)
+        this.$store.commit('HIDE_MODAL')
       }
     },
     mapsUrl () {

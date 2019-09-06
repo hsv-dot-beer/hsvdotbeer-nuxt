@@ -3,7 +3,7 @@
     <ul id="beer-list">
       <beer-item v-for="beer in beers" :key="beer.id" :beer="beer" />
     </ul>
-    <venue-modal :show="showModal" :venue="currentVenue" @update:show="showModal = $event" />
+    <venue-modal />
   </div>
 </template>
 
@@ -19,16 +19,14 @@ export default {
   },
   data () {
     return {
-      bottom: false,
-      showModal: true
+      bottom: false
     }
   },
   computed: {
     ...mapState({
       next: state => state.beers.links.next,
       beerCount: state => state.beers.count,
-      beers: state => state.beers.records,
-      currentVenue: state => state.venues.records[0]
+      beers: state => state.beers.records
     })
   },
   watch: {
