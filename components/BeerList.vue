@@ -3,19 +3,16 @@
     <ul id="beer-list">
       <beer-item v-for="beer in beers" :key="beer.id" :beer="beer" />
     </ul>
-    <venue-modal />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import BeerItem from '~/components/BeerItem'
-import VenueModal from '~/components/VenueModal'
 
 export default {
   components: {
-    BeerItem,
-    VenueModal
+    BeerItem
   },
   data () {
     return {
