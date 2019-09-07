@@ -32,26 +32,7 @@ export default {
     })
   },
   methods: {
-    updateBeers ({ sort, invert }) {
-      let ordering = ''
-
-      if (sort === 'name') {
-        ordering = 'name'
-      } else if (sort === 'brewer') {
-        ordering = 'manufacturer__name'
-      } else if (sort === 'style') {
-        ordering = 'style__name'
-      } else if (sort === 'abv') {
-        ordering = 'abv'
-      } else {
-        // Default to name
-        ordering = 'name'
-      }
-
-      if (invert) {
-        ordering = `-${ordering}`
-      }
-
+    updateBeers (ordering) {
       this.$store.dispatch('beers/loadPage', {
         options: { on_tap: true, o: ordering }
       })

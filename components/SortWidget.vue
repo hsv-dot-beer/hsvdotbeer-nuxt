@@ -30,6 +30,28 @@ export default {
     }
   },
   methods: {
+    getOrdering () {
+      let ordering = ''
+      const sort = this.selected_sort.sort
+
+      if (sort === 'name') {
+        ordering = 'name'
+      } else if (sort === 'brewer') {
+        ordering = 'manufacturer__name'
+      } else if (sort === 'style') {
+        ordering = 'style__name'
+      } else if (sort === 'abv') {
+        ordering = 'abv'
+      } else {
+        // Default to name
+        ordering = 'name'
+      }
+
+      if (this.invert_sort) {
+        ordering = `-${ordering}`
+      }
+      return ordering
+    },
     onSortChange (newSort) {
       if (this.selected_sort.sort === newSort.sort) {
         this.invert_sort = !this.invert_sort
@@ -37,10 +59,7 @@ export default {
         this.selected_sort = newSort
         this.invert_sort = false
       }
-      this.$emit('updated', {
-        sort: this.selected_sort.sort,
-        invert: this.invert_sort
-      })
+      this.$emit('updated', this.getOrdering())
     }
   }
 }
