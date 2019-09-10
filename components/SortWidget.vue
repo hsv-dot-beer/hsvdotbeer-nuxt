@@ -22,7 +22,7 @@ export default {
     return {
       sort: [
         { name: 'Name', sort: 'name' },
-        { name: 'Brewer', sort: 'brewer' },
+        { name: 'Brewery', sort: 'manufacturer' },
         { name: 'Style', sort: 'style' },
         { name: 'ABV', sort: 'abv' }],
       invert_sort: false,
@@ -36,7 +36,7 @@ export default {
 
       if (sort === 'name') {
         ordering = 'name'
-      } else if (sort === 'brewer') {
+      } else if (sort === 'manufacturer') {
         ordering = 'manufacturer__name'
       } else if (sort === 'style') {
         ordering = 'style__name'
