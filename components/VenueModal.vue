@@ -117,7 +117,6 @@ export default {
     },
     formattedPhone () {
       const regex = /(\d\d\d)(\d\d\d)(\d\d\d\d)/
-      console.log('wheeeeee')
       if (this.venue.phone_number && this.venue.phone_number.match(regex)) {
         return this.venue.phone_number.replace(regex, '($1) $2-$3')
       }
