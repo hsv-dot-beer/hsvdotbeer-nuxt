@@ -17,9 +17,14 @@
       class="form-control search"
       placeholder="Search beers, breweries, or styles"
       aria-label="Search beers, breweries, or styles"
+      list="beer-search-suggestions"
       @focus="searchActive = true"
+      @input="onQueryInput"
       @keyup.enter="onQueryEnter"
     >
+    <datalist id="beer-search-suggestions">
+      <option v-for="s in suggestions" :key="s" :value="s" />
+    </datalist>
     <button
       class="btn btn-clearsearch btn-secondary"
       type="button"
@@ -34,15 +39,26 @@
 const beers = useBeersStore()
 const query = ref(undefined)
 const searchActive = ref(false)
+const suggestions = ref([])
+let debounceTimer = null
 
 function onQueryEnter () {
-  beers.loadPage({ options: { on_tap: true, search: query.value } })
+  beers.setSearch(query.value)
 }
 
 function onSearchClose () {
   query.value = ''
   searchActive.value = false
-  beers.loadPage({ options: { on_tap: true, search: query.value } })
+  suggestions.value = []
+  beers.setSearch('')
+}
+
+function onQueryInput () {
+  clearTimeout(debounceTimer)
+  const value = query.value
+  debounceTimer = setTimeout(async () => {
+    suggestions.value = value ? await beers.fetchSuggestions(value) : []
+  }, 300)
 }
 </script>
 

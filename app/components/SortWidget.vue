@@ -31,6 +31,12 @@
 </template>
 
 <script setup>
+const props = defineProps({
+  initialOrdering: {
+    type: String,
+    default: 'name'
+  }
+})
 const emit = defineEmits(['updated'])
 
 const sort = [
@@ -39,8 +45,18 @@ const sort = [
   { name: 'Style', sort: 'style' },
   { name: 'ABV', sort: 'abv' }
 ]
-const invertSort = ref(false)
-const selectedSort = ref({ name: 'Name', sort: 'name' })
+const orderingFieldMap = { name: 'name', manufacturer: 'manufacturer__name', style: 'style__name', abv: 'abv' }
+
+function parseOrdering (ordering) {
+  const invert = ordering.startsWith('-')
+  const field = invert ? ordering.slice(1) : ordering
+  const match = sort.find(s => orderingFieldMap[s.sort] === field)
+  return { selected: match || sort[0], invert }
+}
+
+const initial = parseOrdering(props.initialOrdering)
+const invertSort = ref(initial.invert)
+const selectedSort = ref(initial.selected)
 const sortOpen = ref(false)
 const root = ref(null)
 

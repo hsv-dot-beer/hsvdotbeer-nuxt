@@ -5,7 +5,7 @@
         <span class="beer-total">{{ beersStore.count }}</span>
         <span class="d-none">matching</span> beers on tap
       </h2>
-      <SortWidget @updated="updateBeers($event)" />
+      <SortWidget :initial-ordering="beersStore.ordering" @updated="beersStore.setOrdering($event)" />
     </div>
     <BeerList />
   </div>
@@ -15,18 +15,14 @@
 const beersStore = useBeersStore()
 const ui = useUiStore()
 
+beersStore.setVenueSlug(null)
+
 onBeforeRouteLeave((to, from, next) => {
   ui.hideVenueModal()
   next()
 })
 
-await useAsyncData('beers-index', () => beersStore.loadPage({
-  options: { on_tap: true, o: 'name' }
-}).catch(() => false))
-
-function updateBeers (ordering) {
-  beersStore.loadPage({ options: { on_tap: true, o: ordering } })
-}
+await useAsyncData('beers-index', () => beersStore.applyFilters().catch(() => false))
 </script>
 
 <style>

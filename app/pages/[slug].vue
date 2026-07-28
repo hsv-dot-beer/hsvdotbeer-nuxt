@@ -8,7 +8,7 @@
           {{ venue.name }}
         </button>
       </h2>
-      <SortWidget @updated="updateBeers($event)" />
+      <SortWidget :initial-ordering="beersStore.ordering" @updated="beersStore.setOrdering($event)" />
     </div>
 
     <BeerList />
@@ -28,23 +28,17 @@ if (!venue.value) {
   throw createError({ statusCode: 404, statusMessage: 'Venue not found', fatal: true })
 }
 
+beersStore.setVenueSlug(slug.value)
+
 onBeforeRouteLeave((to, from, next) => {
   ui.hideVenueModal()
   next()
 })
 
-await useAsyncData(`beers-venue-${slug.value}`, () => beersStore.loadPage({
-  options: { on_tap: true, taps__venue__slug: slug.value, o: 'name' }
-}).catch(() => false))
+await useAsyncData(`beers-venue-${slug.value}`, () => beersStore.applyFilters().catch(() => false))
 
 function openModal (v) {
   ui.showVenueModal(v)
-}
-
-function updateBeers (ordering) {
-  beersStore.loadPage({
-    options: { on_tap: true, taps__venue__slug: slug.value, o: ordering }
-  })
 }
 </script>
 

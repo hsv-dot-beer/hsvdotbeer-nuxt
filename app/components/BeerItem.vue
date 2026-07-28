@@ -7,6 +7,7 @@
       <div class="beer-info">
         <button type="button" class="beer-link" @click="toggle">
           <h2 class="beer-name">
+            <span v-if="isNew" class="beer-new-badge">New</span>
             {{ beer.name }}
           </h2>
         </button>
@@ -69,6 +70,12 @@ function onLogoError () {
 }
 const styleCss = computed(() => props.beer.color_srm_html ? { '--background-color': props.beer.color_srm_html } : {})
 const styleName = computed(() => props.beer.style ? props.beer.style.name : 'Unknown')
+
+const isNew = computed(() => {
+  if (!props.beer.time_first_seen) { return false }
+  const daysSince = (Date.now() - new Date(props.beer.time_first_seen).getTime()) / (1000 * 60 * 60 * 24)
+  return daysSince >= 0 && daysSince <= 14
+})
 
 const rating = computed(() => {
   const rawRating = props.beer.untappd_metadata?.json_data?.rating_score
@@ -203,6 +210,21 @@ li.beer:last-of-type .beer-info {
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.3;
+}
+
+.beer-new-badge {
+  display: inline-block;
+  vertical-align: 0.15em;
+  margin-right: 0.35rem;
+  padding: 0.05rem 0.35rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: var(--color-link);
+  color: var(--bg-main);
 }
 
 .beer-brewer {
