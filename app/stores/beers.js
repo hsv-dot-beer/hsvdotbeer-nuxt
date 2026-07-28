@@ -25,7 +25,10 @@ export const useBeersStore = defineStore('beers', {
     status: STATUS_INITIAL,
     links: {},
     count: 0,
-    records: []
+    records: [],
+    search: '',
+    ordering: 'name',
+    venueSlug: null
   }),
   getters: {
     isLoading: state => state.status === STATUS_LOADING,
@@ -42,6 +45,38 @@ export const useBeersStore = defineStore('beers', {
       this.links = {}
       this.count = 0
       this.records = []
+    },
+    setVenueSlug (slug) {
+      this.venueSlug = slug || null
+    },
+    buildOptions () {
+      return {
+        on_tap: true,
+        o: this.ordering,
+        search: this.search || undefined,
+        taps__venue__slug: this.venueSlug || undefined
+      }
+    },
+    applyFilters () {
+      return this.loadPage({ options: this.buildOptions() })
+    },
+    setSearch (value) {
+      this.search = value
+      return this.applyFilters()
+    },
+    setOrdering (value) {
+      this.ordering = value
+      return this.applyFilters()
+    },
+    async fetchSuggestions (query) {
+      if (!query) { return [] }
+      const options = {
+        on_tap: true,
+        search: query,
+        taps__venue__slug: this.venueSlug || undefined
+      }
+      const data = await $fetch(`/api/proxy/beers?${getOptionsQuery(options)}`)
+      return [...new Set(data.results.map(b => b.name))].slice(0, 8)
     },
     storeResults (data) {
       this.status = STATUS_SUCCESS
