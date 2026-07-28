@@ -267,6 +267,7 @@ nav.navbar {
 
 .text-intro {
   padding-bottom: 1rem;
+  color: #31302c;
 }
 
 h1,

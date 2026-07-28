@@ -14,6 +14,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'HSV.beer',
+      htmlAttrs: {
+        lang: 'en'
+      },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -25,7 +28,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css?family=Montserrat:400,500|Oswald:500&display=swap'
+          href: 'https://fonts.googleapis.com/css?family=Montserrat:400,500|Oswald:500&display=optional'
         }
       ],
       script: [
