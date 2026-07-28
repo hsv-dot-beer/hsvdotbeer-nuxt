@@ -122,7 +122,7 @@ const formattedWebsite = computed(() => {
 
 .venue-modal {
   position: relative;
-  background: #fff;
+  background: var(--bg-main);
   border-radius: 0.3rem;
   width: 100%;
   max-width: 500px;
@@ -161,7 +161,7 @@ const formattedWebsite = computed(() => {
   display: flex;
   flex-wrap: wrap;
   line-height: 2;
-  border-top: .5px solid #ccc;
+  border-top: .5px solid var(--border-color-light);
   margin-left: -2rem;
   margin-right: -2rem;
   overflow: hidden;
@@ -179,14 +179,14 @@ const formattedWebsite = computed(() => {
 .venue-info__link {
   display: block;
   width: 100%;
-  color: #31302c;
+  color: var(--color-text);
   position: relative;
   padding: 0.5rem 1rem;
-  border-bottom: .5px solid #ccc;
+  border-bottom: .5px solid var(--border-color-light);
 }
 
 .venue-info__link:hover {
-  background: rgba(0,0,0,0.1);
+  background: var(--overlay-hover);
   text-decoration: none;
 }
 
@@ -226,7 +226,7 @@ const formattedWebsite = computed(() => {
 }
 
 .venue-social a:hover {
-  background: #e5e5e5;
+  background: var(--bg-subtle);
   opacity: 1;
 }
 

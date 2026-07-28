@@ -32,14 +32,14 @@ const logo = computed(() => props.venue.logo_url ? props.venue.logo_url : '/img/
   transition: all 0.1s ease-out;
 }
 .venue-list__venue.active {
-  background: #fffbee;
+  background: var(--bg-hover);
   box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2), 0 2px 8px 4px rgba(60, 64, 67, 0.1);
   z-index: 10;
   padding: 0.5rem 0 1rem;
 }
 .venue-list__venue:hover,
 .venue-list__venue:focus-within {
-  background: #fffbee;
+  background: var(--bg-hover);
   box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.2), 0 2px 8px 4px rgba(60, 64, 67, 0.1);
 }
 .venue-list__venue.active:hover,
@@ -52,7 +52,7 @@ const logo = computed(() => props.venue.logo_url ? props.venue.logo_url : '/img/
 }
 .venue-list__venue-link,
 .venue-list__venue-link:hover {
-  color: #31302c;
+  color: var(--color-text);
   text-decoration: none;
 }
 .venue-list__venue-link::after {
@@ -72,7 +72,7 @@ const logo = computed(() => props.venue.logo_url ? props.venue.logo_url : '/img/
   padding-bottom: 1rem;
   padding-right: 0.5rem;
   margin-top: -0.125rem;
-  box-shadow: 0 1px 0 #ddd;
+  box-shadow: 0 1px 0 var(--border-color);
   transition: box-shadow 0s 0s ease-out;
 }
 .venue-list__venue.active .venue-list__venue-info,
@@ -93,8 +93,8 @@ const logo = computed(() => props.venue.logo_url ? props.venue.logo_url : '/img/
   margin-bottom: 1.25rem;
   margin-right: 1rem;
   transition: all 0.1s ease-out;
-  border: 1px solid #ddd;
-  background: #e5e5e5;
+  border: 1px solid var(--border-color);
+  background: var(--bg-subtle);
   display: flex;
 }
 
