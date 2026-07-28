@@ -65,11 +65,22 @@ function onLogoError () {
   logoLoadFailed.value = true
 }
 
-useHead({
-  title: `${beer.value.name} - HSV.beer`,
-  meta: [
-    { name: 'description', content: `${beer.value.name} by ${beer.value.manufacturer.name} - find it on tap in Huntsville.` }
-  ]
+const config = useRuntimeConfig()
+const pageTitle = `${beer.value.name} - HSV.beer`
+const pageDescription = `${beer.value.name} by ${beer.value.manufacturer.name} - find it on tap in Huntsville.`
+const pageImage = beer.value.logo_url || `${config.public.siteUrl}/icon.png`
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogImage: pageImage,
+  ogUrl: `${config.public.siteUrl}/beer/${beer.value.id}`,
+  twitterCard: beer.value.logo_url ? 'summary_large_image' : 'summary',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: pageImage
 })
 </script>
 

@@ -40,6 +40,24 @@ await useAsyncData(`beers-venue-${slug.value}`, () => beersStore.applyFilters().
 function openModal (v) {
   ui.showVenueModal(v)
 }
+
+const config = useRuntimeConfig()
+const pageTitle = `${venue.value.name} - HSV.beer`
+const pageDescription = `Beers on tap at ${venue.value.name} in Huntsville, AL.`
+const pageImage = venue.value.logo_url || `${config.public.siteUrl}/icon.png`
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogImage: pageImage,
+  ogUrl: `${config.public.siteUrl}/${slug.value}`,
+  twitterCard: venue.value.logo_url ? 'summary_large_image' : 'summary',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: pageImage
+})
 </script>
 
 <style>
