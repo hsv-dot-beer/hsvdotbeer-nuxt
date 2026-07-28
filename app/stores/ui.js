@@ -2,12 +2,16 @@ export const useUiStore = defineStore('ui', {
   state: () => ({
     showModal: false,
     modalVenue: {},
-    theme: null
+    theme: null,
+    apiDown: false
   }),
   actions: {
     showVenueModal (venue) {
       this.modalVenue = venue
       this.showModal = true
+    },
+    setApiDown (value) {
+      this.apiDown = value
     },
     hideVenueModal () {
       this.modalVenue = {}

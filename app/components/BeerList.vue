@@ -6,6 +6,9 @@
     <div v-if="beersStore.isLoading" class="beer-list-spinner" role="status">
       <span class="visually-hidden">Loading more beers…</span>
     </div>
+    <p v-if="beersStore.isError" class="beer-list-error" role="alert">
+      Couldn't load beers right now. Please try again shortly.
+    </p>
     <button
       v-show="showScrollTop"
       type="button"
@@ -59,6 +62,12 @@ onUnmounted(() => {
 #beer-list {
   padding: 0;
   list-style: none;
+}
+
+.beer-list-error {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 1rem;
 }
 
 .beer-list-spinner {

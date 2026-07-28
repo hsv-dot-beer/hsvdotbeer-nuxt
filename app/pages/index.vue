@@ -22,7 +22,7 @@ onBeforeRouteLeave((to, from, next) => {
 
 await useAsyncData('beers-index', () => beersStore.loadPage({
   options: { on_tap: true, o: 'name' }
-}))
+}).catch(() => false))
 
 function updateBeers (ordering) {
   beersStore.loadPage({ options: { on_tap: true, o: ordering } })

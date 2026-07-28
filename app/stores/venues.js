@@ -18,8 +18,7 @@ export const useVenuesStore = defineStore('venues', {
   },
   actions: {
     async load () {
-      const config = useRuntimeConfig()
-      const data = await $fetch('venues/', { baseURL: config.public.apiBase })
+      const data = await $fetch('/api/proxy/venues')
       data.results.forEach(storeRecord(this.records))
       this.count = data.count
       return true

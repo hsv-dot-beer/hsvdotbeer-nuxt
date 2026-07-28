@@ -21,7 +21,10 @@
           <span v-if="abvFixed" class="beer-abv">{{ abvFixed }}%</span>
         </div>
         <div v-if="rating !== null && rating >= 0.1" class="beer-permalink-rating">
-          Untappd rating: {{ rating }}
+          <a v-if="beer.untappd_url" :href="beer.untappd_url" target="_blank" rel="noreferrer">
+            {{ ratingLabel }}
+          </a>
+          <span v-else>{{ ratingLabel }}</span>
         </div>
       </div>
     </div>
@@ -50,6 +53,12 @@ const styleName = computed(() => beer.value.style ? beer.value.style.name : 'Unk
 const rating = computed(() => {
   const rawRating = beer.value.untappd_metadata?.json_data?.rating_score
   return rawRating !== undefined ? Number(rawRating).toFixed(1) : undefined
+})
+
+const ratingLabel = computed(() => {
+  if (rating.value === undefined) { return undefined }
+  const count = beer.value.untappd_metadata?.json_data?.rating_count
+  return count ? `${rating.value} on Untappd from ${count.toLocaleString()} ratings` : `${rating.value} on Untappd`
 })
 
 function onLogoError () {
