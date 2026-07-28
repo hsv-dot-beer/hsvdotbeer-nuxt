@@ -1,8 +1,9 @@
 <template>
   <div class="page-container">
-    <div id="nav-sidebar" class="nav-sidebar" :class="{ open: sidebarOpen }">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div id="nav-sidebar" class="nav-sidebar" :class="{ open: sidebarOpen }" @keydown.escape="closeSidebar">
       <div class="nav-sidebar-backdrop" @click="sidebarOpen = false" />
-      <div class="nav-sidebar-panel">
+      <div ref="sidebarPanel" class="nav-sidebar-panel">
         <ul class="nav flex-column">
           <li class="nav-item">
             <NuxtLink class="nav-link" to="/" @click="sidebarOpen = false">
@@ -29,9 +30,11 @@
             <HsvBeerLogo />
           </NuxtLink>
           <button
+            ref="menuButton"
             aria-label="Navigation Menu"
             class="menu-link md-icon-button btn"
             type="button"
+            :aria-expanded="sidebarOpen ? 'true' : 'false'"
             @click="sidebarOpen = !sidebarOpen"
           >
             <svg
@@ -56,7 +59,7 @@
         <VenueSelect v-if="['index', 'slug', 'venues'].includes($route.name)" />
       </div>
     </div>
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
       <VenueModal />
     </main>
@@ -65,6 +68,20 @@
 
 <script setup>
 const sidebarOpen = ref(false)
+const menuButton = ref(null)
+const sidebarPanel = ref(null)
+
+function closeSidebar () {
+  sidebarOpen.value = false
+  menuButton.value?.focus()
+}
+
+watch(sidebarOpen, async (open) => {
+  if (open) {
+    await nextTick()
+    sidebarPanel.value?.querySelector('a, button')?.focus()
+  }
+})
 </script>
 
 <style>
@@ -252,6 +269,21 @@ main {
   border-radius: 1.25rem;
   padding-bottom: 1rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 2000;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #31302c;
+  border-radius: 0 0 0.25rem 0;
+}
+
+.skip-link:focus {
+  left: 0;
 }
 
 /* Sidebar nav (replaces bootstrap-vue's b-sidebar) */

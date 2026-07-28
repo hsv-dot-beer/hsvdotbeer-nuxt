@@ -304,7 +304,7 @@ li.beer:last-of-type .beer-info {
   font-size: 1rem;
   padding-right: 0.25rem;
   padding-top: 0.325rem;
-  color: #8f6400;
+  color: #704e00;
 }
 
 .beer-details-container {
