@@ -7,8 +7,12 @@
       aria-haspopup="true"
       :aria-expanded="sortOpen ? 'true' : 'false'"
       @click="sortOpen = !sortOpen"
-    />
-    <div class="sort-options z-3" @keydown.escape="closeSort">
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 459 459" width="16" height="16" fill="currentColor">
+        <path d="M178.5,382.5h102v-51h-102V382.5z M0,76.5v51h459v-51H0z M76.5,255h306v-51h-306V255z" />
+      </svg>
+    </button>
+    <div class="sort-options" @keydown.escape="closeSort">
       <div class="sort-options-header">
         Sort by:
       </div>
@@ -115,14 +119,7 @@ function onSortChange (newSort) {
 }
 .sort-button {
   padding:.75rem;
-}
-.sort-button:before {
-  content: "";
-  background-image: url("../assets/filter-results-button.svg");
-  width: 1rem;
-  height: 1rem;
-  display:block;
-  background-size:1rem;
+  color: var(--color-text);
 }
 .sort-options {
   display:none;
@@ -132,6 +129,7 @@ function onSortChange (newSort) {
   width:8rem;
   background:var(--bg-hover);
   z-index:1000;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 .sort.open .sort-options {
   display:block;

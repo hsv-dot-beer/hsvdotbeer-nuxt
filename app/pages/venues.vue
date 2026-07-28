@@ -10,6 +10,15 @@
 
 <script setup>
 const venuesStore = useVenuesStore()
+
+useSeoMeta({
+  title: 'Venues - HSV.beer',
+  description: 'Browse taprooms serving draft beer in Huntsville, AL.',
+  ogTitle: 'Venues - HSV.beer',
+  ogDescription: 'Browse taprooms serving draft beer in Huntsville, AL.',
+  twitterTitle: 'Venues - HSV.beer',
+  twitterDescription: 'Browse taprooms serving draft beer in Huntsville, AL.'
+})
 </script>
 
 <style>

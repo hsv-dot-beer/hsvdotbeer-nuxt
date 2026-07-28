@@ -104,6 +104,17 @@
   </div>
 </template>
 
+<script setup>
+useSeoMeta({
+  title: 'About - HSV.beer',
+  description: 'HSV.beer is an open-source project helping Huntsville residents and visitors find draft beer.',
+  ogTitle: 'About - HSV.beer',
+  ogDescription: 'HSV.beer is an open-source project helping Huntsville residents and visitors find draft beer.',
+  twitterTitle: 'About - HSV.beer',
+  twitterDescription: 'HSV.beer is an open-source project helping Huntsville residents and visitors find draft beer.'
+})
+</script>
+
 <style>
 @media (min-width: 576px) {
   .founders img {

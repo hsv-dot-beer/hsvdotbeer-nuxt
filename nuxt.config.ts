@@ -7,7 +7,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: 'https://dev.hsv.beer/api/v1/'
+      apiBase: 'https://dev.hsv.beer/api/v1/',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://hsv-beer.fly.dev'
     }
   },
 
