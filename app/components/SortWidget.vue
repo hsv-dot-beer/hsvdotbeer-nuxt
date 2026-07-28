@@ -117,7 +117,6 @@ function onSortChange (newSort) {
   background:#fffbee;
   z-index:1000;
 }
-.sort:hover .sort-options,
 .sort.open .sort-options {
   display:block;
 }
