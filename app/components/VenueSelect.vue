@@ -1,6 +1,6 @@
 <template>
   <div class="taphouse-select-container">
-    <select id="taphouseSelect" class="chosen-select" @change="onChange($event)">
+    <select id="taphouseSelect" class="chosen-select" aria-label="Select a taproom" @change="onChange($event)">
       <option value="">
         Select a taproom
       </option>

@@ -2,7 +2,7 @@
   <li :class="{ active: visible }" class="beer">
     <div class="beer-intro">
       <div class="beer-logo">
-        <img :src="logo" :alt="logoAlt" aria-hidden="true" loading="lazy">
+        <img :src="logo" :alt="logoAlt" aria-hidden="true" loading="lazy" @error="onLogoError">
       </div>
       <div class="beer-info">
         <button type="button" class="beer-link" @click="toggle">
@@ -103,10 +103,15 @@ const props = defineProps({
 
 const ui = useUiStore()
 const visible = ref(false)
+const logoLoadFailed = ref(false)
 
 const abvFixed = computed(() => props.beer.abv ? Number(props.beer.abv).toFixed(1) : undefined)
-const logo = computed(() => props.beer.logo_url ? props.beer.logo_url : '/img/beernotfound.jpg')
+const logo = computed(() => props.beer.logo_url && !logoLoadFailed.value ? props.beer.logo_url : '/img/beernotfound.jpg')
 const logoAlt = computed(() => props.beer.name + ' logo')
+
+function onLogoError () {
+  logoLoadFailed.value = true
+}
 const styleCss = computed(() => props.beer.color_srm_html ? { '--background-color': props.beer.color_srm_html } : {})
 const styleName = computed(() => props.beer.style ? props.beer.style.name : 'Unknown')
 
