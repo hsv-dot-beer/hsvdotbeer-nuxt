@@ -6,5 +6,9 @@
 
 <script setup>
 const venues = useVenuesStore()
-await useAsyncData('venues', () => venues.load())
+const ui = useUiStore()
+const { data: venuesLoaded } = await useAsyncData('venues', () => venues.load().catch(() => false))
+if (!venuesLoaded.value) {
+  ui.setApiDown(true)
+}
 </script>

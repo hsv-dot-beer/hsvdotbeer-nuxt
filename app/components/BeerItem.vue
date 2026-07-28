@@ -17,7 +17,21 @@
           {{ styleName }}
           <span v-if="abvFixed" class="beer-abv">{{ abvFixed }}%</span>
         </div>
-        <div v-if="rating !== null && rating >= 0.1" class="beer-rating">
+        <a
+          v-if="rating !== null && rating >= 0.1 && beer.untappd_url"
+          :href="beer.untappd_url"
+          target="_blank"
+          rel="noreferrer"
+          class="beer-rating"
+          :title="ratingLabel"
+        >
+          {{ rating }}
+        </a>
+        <div
+          v-else-if="rating !== null && rating >= 0.1"
+          class="beer-rating"
+          :title="ratingLabel"
+        >
           {{ rating }}
         </div>
       </div>
@@ -59,6 +73,12 @@ const styleName = computed(() => props.beer.style ? props.beer.style.name : 'Unk
 const rating = computed(() => {
   const rawRating = props.beer.untappd_metadata?.json_data?.rating_score
   return rawRating !== undefined ? Number(rawRating).toFixed(1) : undefined
+})
+
+const ratingLabel = computed(() => {
+  if (rating.value === undefined) { return undefined }
+  const count = props.beer.untappd_metadata?.json_data?.rating_count
+  return count ? `${rating.value} on Untappd from ${count.toLocaleString()} ratings` : `${rating.value} on Untappd`
 })
 
 function toggle () {
@@ -219,6 +239,8 @@ li.beer:last-of-type .beer-info {
 
 .beer-rating {
   position: absolute;
+  z-index: 10;
+  display: block;
   top: 0.875rem;
   right: 0.5rem;
   padding: 0.075rem;
@@ -235,6 +257,11 @@ li.beer:last-of-type .beer-info {
   padding-right: 0.25rem;
   padding-top: 0.325rem;
   color: #704e00;
+}
+
+a.beer-rating:hover {
+  color: var(--color-link-hover);
+  text-decoration: none;
 }
 
 .beer-details-container {

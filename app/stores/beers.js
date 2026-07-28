@@ -51,17 +51,14 @@ export const useBeersStore = defineStore('beers', {
     },
     async loadPage ({ options }) {
       this.status = STATUS_LOADING
-      const config = useRuntimeConfig()
       try {
-        const data = await $fetch(`beers/?${getOptionsQuery(options)}`, {
-          baseURL: config.public.apiBase
-        })
+        const data = await $fetch(`/api/proxy/beers?${getOptionsQuery(options)}`)
         this.resetState()
         this.storeResults(data)
         return true
       } catch (err) {
         this.status = STATUS_ERROR
-        this.error = err
+        this.error = err?.message || String(err)
         throw err
       }
     },
@@ -69,18 +66,18 @@ export const useBeersStore = defineStore('beers', {
       if (!this.links.next || this.status === STATUS_LOADING) { return false }
       this.status = STATUS_LOADING
       try {
-        const data = await $fetch(this.links.next)
+        const nextUrl = new URL(this.links.next)
+        const data = await $fetch(`/api/proxy/beers${nextUrl.search}`)
         this.storeResults(data)
         return true
       } catch (err) {
         this.status = STATUS_ERROR
-        this.error = err
+        this.error = err?.message || String(err)
         throw err
       }
     },
     async loadOne (id) {
-      const config = useRuntimeConfig()
-      const beer = await $fetch(`beers/${id}/`, { baseURL: config.public.apiBase })
+      const beer = await $fetch(`/api/proxy/beers/${id}`)
       storeRecord(this.records)(beer)
       return beer
     }

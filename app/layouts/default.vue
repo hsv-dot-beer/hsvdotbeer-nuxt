@@ -86,6 +86,9 @@
         <VenueSelect v-if="['index', 'slug', 'venues'].includes($route.name)" />
       </div>
     </div>
+    <div v-if="ui.apiDown" class="api-down-banner" role="alert">
+      HSV.beer is having trouble reaching the server right now. Some information may be missing or out of date - please try again shortly.
+    </div>
     <main id="main-content" tabindex="-1">
       <slot />
       <VenueModal />
@@ -374,6 +377,16 @@ main {
   border-radius: 1.25rem;
   padding-bottom: 1rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.api-down-banner {
+  background: #fff3cd;
+  color: #664d03;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .skip-link {

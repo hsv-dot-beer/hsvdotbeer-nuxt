@@ -24,6 +24,10 @@ const ui = useUiStore()
 const slug = computed(() => route.params.slug)
 const venue = computed(() => venuesStore.bySlug(slug.value))
 
+if (!venue.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Venue not found', fatal: true })
+}
+
 onBeforeRouteLeave((to, from, next) => {
   ui.hideVenueModal()
   next()
@@ -31,7 +35,7 @@ onBeforeRouteLeave((to, from, next) => {
 
 await useAsyncData(`beers-venue-${slug.value}`, () => beersStore.loadPage({
   options: { on_tap: true, taps__venue__slug: slug.value, o: 'name' }
-}))
+}).catch(() => false))
 
 function openModal (v) {
   ui.showVenueModal(v)

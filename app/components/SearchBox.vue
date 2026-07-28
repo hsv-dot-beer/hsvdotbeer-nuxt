@@ -123,7 +123,8 @@ nav .search-container {
 }
 
 .search, .search::placeholder {
-  font-size:1rem;
+  /* iOS Safari zooms in on focus for inputs under 16px, regardless of the root font-size */
+  font-size:16px;
   line-height:1.25;
 }
 
