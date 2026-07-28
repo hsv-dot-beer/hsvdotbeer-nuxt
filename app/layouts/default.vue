@@ -51,6 +51,33 @@
               <path d="M3 12h18M3 6h18M3 18h18" />
             </svg>
           </button>
+          <button
+            aria-label="Toggle dark mode"
+            class="theme-toggle btn"
+            type="button"
+            @click="ui.toggleTheme()"
+          >
+            <svg
+              v-if="isDark"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M12 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm0 5a4 4 0 100 8 4 4 0 000-8zm9 4a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM4 12a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm14.36-6.36a1 1 0 010 1.41l-.7.71a1 1 0 11-1.42-1.42l.71-.7a1 1 0 011.41 0zM7.05 17.65a1 1 0 010 1.41l-.7.71a1 1 0 11-1.42-1.42l.71-.7a1 1 0 011.41 0zM19.07 17.65a1 1 0 011.41 1.41l-.71.71a1 1 0 11-1.41-1.42l.7-.7zM6.34 5.64a1 1 0 011.42 1.42l-.71.7A1 1 0 015.64 6.34l.7-.7zM12 19a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1z" />
+            </svg>
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M21.64 13a1 1 0 00-1.05-.14 8.05 8.05 0 01-3.37.73 8.15 8.15 0 01-8.14-8.14c0-1.18.25-2.32.73-3.37a1 1 0 00-1.29-1.35A10.14 10.14 0 002 10.14 10.15 10.15 0 0012.14 22a10.13 10.13 0 009.5-6.69 1 1 0 00-.14-2.31z" />
+            </svg>
+          </button>
         </nav>
         <p class="text-intro lead text-center">
           Find draft beer in Huntsville
@@ -70,6 +97,10 @@
 const sidebarOpen = ref(false)
 const menuButton = ref(null)
 const sidebarPanel = ref(null)
+const ui = useUiStore()
+const systemPrefersDark = ref(false)
+
+const isDark = computed(() => ui.theme ? ui.theme === 'dark' : systemPrefersDark.value)
 
 function closeSidebar () {
   sidebarOpen.value = false
@@ -82,9 +113,66 @@ watch(sidebarOpen, async (open) => {
     sidebarPanel.value?.querySelector('a, button')?.focus()
   }
 })
+
+onMounted(() => {
+  ui.initTheme()
+  const media = window.matchMedia('(prefers-color-scheme: dark)')
+  systemPrefersDark.value = media.matches
+  media.addEventListener('change', (e) => { systemPrefersDark.value = e.matches })
+})
 </script>
 
 <style>
+:root {
+  --color-text: #31302c;
+  --color-text-muted: #606060;
+  --color-link: #906500;
+  --color-link-hover: #31302c;
+  --bg-main: #fff;
+  --bg-hover: #fffbee;
+  --bg-subtle: #e5e5e5;
+  --border-color: #ddd;
+  --border-color-light: #ccc;
+  --overlay-soft: rgba(0, 0, 0, 0.05);
+  --overlay-hover: rgba(0, 0, 0, 0.1);
+  --overlay-hover-strong: rgba(0, 0, 0, 0.15);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-text: #eae6de;
+    --color-text-muted: #a8a29b;
+    --color-link: #e3b04f;
+    --color-link-hover: #fff;
+    --bg-main: #201e1a;
+    --bg-hover: #2a2620;
+    --bg-subtle: #35322c;
+    --border-color: #453f35;
+    --border-color-light: #3a352c;
+    --overlay-soft: rgba(255, 255, 255, 0.05);
+    --overlay-hover: rgba(255, 255, 255, 0.08);
+    --overlay-hover-strong: rgba(255, 255, 255, 0.12);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-text: #eae6de;
+  --color-text-muted: #a8a29b;
+  --color-link: #e3b04f;
+  --color-link-hover: #fff;
+  --bg-main: #201e1a;
+  --bg-hover: #2a2620;
+  --bg-subtle: #35322c;
+  --border-color: #453f35;
+  --border-color-light: #3a352c;
+  --overlay-soft: rgba(255, 255, 255, 0.05);
+  --overlay-hover: rgba(255, 255, 255, 0.08);
+  --overlay-hover-strong: rgba(255, 255, 255, 0.12);
+  color-scheme: dark;
+}
+
 html,
 body {
   font-size: 14px;
@@ -104,11 +192,11 @@ img {
 }
 
 a {
-  color: #906500;
+  color: var(--color-link);
 }
 
 a:hover {
-  color: #31302c;
+  color: var(--color-link-hover);
 }
 
 .container-fluid {
@@ -149,6 +237,21 @@ nav.navbar {
   background: rgba(0, 0, 0, 0.15);
 }
 
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  color: #31302c;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
 .navbar-logo {
   margin-left: auto;
   margin-right: auto;
@@ -172,7 +275,7 @@ h3,
 h4,
 h5,
 p {
-  color: #31302c;
+  color: var(--color-text);
 }
 h1,
 h2,
@@ -197,14 +300,14 @@ h2 a {
   font-weight: bold;
 }
 a {
-  color: #906500;
+  color: var(--color-link);
   transition: all 0.2s ease-out;
 }
 a:hover {
-  color: #31302c;
+  color: var(--color-link-hover);
 }
 hr {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
 }
 .z-1,
 .btn.btn-raised {
@@ -265,7 +368,7 @@ hr {
 }
 
 main {
-  background: #fff;
+  background: var(--bg-main);
   border-radius: 1.25rem;
   padding-bottom: 1rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
@@ -277,8 +380,8 @@ main {
   top: 0;
   z-index: 2000;
   padding: 0.75rem 1rem;
-  background: #fff;
-  color: #31302c;
+  background: var(--bg-main);
+  color: var(--color-text);
   border-radius: 0 0 0.25rem 0;
 }
 
@@ -309,7 +412,7 @@ main {
   bottom: 0;
   width: 16rem;
   max-width: 80%;
-  background: #fff;
+  background: var(--bg-main);
   padding: 1.5rem 0 0;
   transform: translateX(-100%);
   transition: transform 0.2s ease-out;
@@ -330,12 +433,12 @@ main {
 
 .nav-sidebar .nav-link {
   padding: 0.75rem 1.5rem;
-  color: #31302c;
+  color: var(--color-text);
 }
 
 .nav-sidebar .nav-link:hover,
 .nav-sidebar .nav-link.router-link-active {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--overlay-soft);
 }
 
 @media (min-width: 420px) {

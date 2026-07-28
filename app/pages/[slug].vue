@@ -46,7 +46,7 @@ function updateBeers (ordering) {
 
 <style>
 .container-results-header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .results-header {
@@ -70,7 +70,7 @@ function updateBeers (ordering) {
   background: transparent;
   border: 0;
   padding: 0;
-  color: #906500;
+  color: var(--color-link);
   cursor: pointer;
   text-transform: uppercase;
   font-weight: inherit;
@@ -78,6 +78,6 @@ function updateBeers (ordering) {
 }
 
 .link-button:hover {
-  color: #31302c;
+  color: var(--color-link-hover);
 }
 </style>

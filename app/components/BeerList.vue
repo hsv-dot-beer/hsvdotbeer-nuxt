@@ -65,8 +65,8 @@ onUnmounted(() => {
   width: 2rem;
   height: 2rem;
   margin: 1rem auto;
-  border: 0.25rem solid #e5e5e5;
-  border-top-color: #906500;
+  border: 0.25rem solid var(--bg-subtle);
+  border-top-color: var(--color-link);
   border-radius: 50%;
   animation: beer-list-spin 0.75s linear infinite;
 }

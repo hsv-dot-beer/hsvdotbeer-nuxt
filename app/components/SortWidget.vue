@@ -114,7 +114,7 @@ function onSortChange (newSort) {
   right:0;
   top:2.75rem;
   width:8rem;
-  background:#fffbee;
+  background:var(--bg-hover);
   z-index:1000;
 }
 .sort.open .sort-options {
@@ -136,7 +136,7 @@ function onSortChange (newSort) {
   background: transparent;
   border: 0;
   padding: .5rem 1rem;
-  color: #906500;
+  color: var(--color-link);
 }
 .sort-options ul li .sort-option.selected {
   border-left:.5rem solid #febf01;
@@ -146,7 +146,7 @@ function onSortChange (newSort) {
   font-size: 0.75rem;
 }
 .sort-options ul li .sort-option:hover {
-  background:rgba(0,0,0,0.1);
+  background:var(--overlay-hover);
   text-decoration:none;
 }
 </style>

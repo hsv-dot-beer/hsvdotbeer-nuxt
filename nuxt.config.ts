@@ -27,6 +27,12 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css?family=Montserrat:400,500|Oswald:500&display=swap'
         }
+      ],
+      script: [
+        {
+          innerHTML: '(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}})()',
+          tagPosition: 'head'
+        }
       ]
     }
   },

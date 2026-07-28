@@ -14,7 +14,7 @@ const venuesStore = useVenuesStore()
 
 <style>
 .container-results-header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .results-header {
