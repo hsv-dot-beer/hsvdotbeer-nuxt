@@ -369,6 +369,7 @@ hr {
 
 main {
   background: var(--bg-main);
+  color: var(--color-text);
   border-radius: 1.25rem;
   padding-bottom: 1rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
