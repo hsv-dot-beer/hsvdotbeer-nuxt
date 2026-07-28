@@ -77,6 +77,12 @@ export const useBeersStore = defineStore('beers', {
         this.error = err
         throw err
       }
+    },
+    async loadOne (id) {
+      const config = useRuntimeConfig()
+      const beer = await $fetch(`beers/${id}/`, { baseURL: config.public.apiBase })
+      storeRecord(this.records)(beer)
+      return beer
     }
   }
 })
