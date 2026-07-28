@@ -1,5 +1,5 @@
 <template>
-  <div id="search" class="search-container" :class="{active: search_active}">
+  <div id="search" class="search-container" :class="{active: searchActive}">
     <div class="search-icon-container">
       <div class="search-icon dark small">
         <div class="mug-top" />
@@ -17,7 +17,7 @@
       class="form-control search"
       placeholder="Search beers, breweries, or styles"
       aria-label="Search beers, breweries, or styles"
-      @focus="search_active = true"
+      @focus="searchActive = true"
       @keyup.enter="onQueryEnter"
     >
     <button
@@ -30,29 +30,19 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SearchBox',
-  data () {
-    return {
-      query: undefined,
-      search_active: false
-    }
-  },
-  methods: {
-    onQueryEnter () {
-      this.$store.dispatch('beers/loadPage', {
-        options: { on_tap: true, search: this.query }
-      })
-    },
-    onSearchClose () {
-      this.query = ''
-      this.search_active = false
-      this.$store.dispatch('beers/loadPage', {
-        options: { on_tap: true, search: this.query }
-      })
-    }
-  }
+<script setup>
+const beers = useBeersStore()
+const query = ref(undefined)
+const searchActive = ref(false)
+
+function onQueryEnter () {
+  beers.loadPage({ options: { on_tap: true, search: query.value } })
+}
+
+function onSearchClose () {
+  query.value = ''
+  searchActive.value = false
+  beers.loadPage({ options: { on_tap: true, search: query.value } })
 }
 </script>
 

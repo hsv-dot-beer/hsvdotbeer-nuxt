@@ -2,29 +2,14 @@
   <div class="container-fluid">
     <div class="container-list">
       <ul id="venue-list">
-        <venue-item v-for="venue in venues" :key="venue.id" :venue="venue" />
+        <VenueItem v-for="venue in venuesStore.records" :key="venue.id" :venue="venue" />
       </ul>
     </div>
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex'
-import VenueItem from '~/components/VenueItem'
-
-export default {
-  components: {
-    VenueItem
-  },
-  async fetch ({ store }) {
-    await store.dispatch('venues/load')
-  },
-  computed: {
-    ...mapState({
-      venues: state => state.venues.records
-    })
-  }
-}
+<script setup>
+const venuesStore = useVenuesStore()
 </script>
 
 <style>

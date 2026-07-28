@@ -1,48 +1,29 @@
 <template>
-  <li :class="{ active: visible }" class="venue-list__venue">
+  <li class="venue-list__venue">
     <div class="venue-list__venue-intro">
       <div class="venue-list__venue-logo">
-        <b-img-lazy :src="logo" blank-src="/img/beernotfound.jpg" />
+        <img :src="logo" alt="" loading="lazy">
       </div>
       <div class="venue-list__venue-info">
-        <nuxt-link :to="venue.slug" class="venue-list__venue-link">
+        <NuxtLink :to="`/${venue.slug}`" class="venue-list__venue-link">
           <h2 class="venue-list__venue-name">
             {{ venue.name }}
           </h2>
-        </nuxt-link>
+        </NuxtLink>
       </div>
     </div>
   </li>
 </template>
 
-<script>
-export default {
-  name: 'VenueItem',
-  props: {
-    venue: {
-      type: Object,
-      default: () => {}
-    }
-  },
-  data () {
-    return {
-      visible: false
-    }
-  },
-  computed: {
-    logo () {
-      if (this.venue.logo_url) {
-        return this.venue.logo_url
-      }
-      return '/img/beernotfound.jpg'
-    }
-  },
-  methods: {
-    toggle () {
-      this.visible = !this.visible
-    }
+<script setup>
+const props = defineProps({
+  venue: {
+    type: Object,
+    default: () => ({})
   }
-}
+})
+
+const logo = computed(() => props.venue.logo_url ? props.venue.logo_url : '/img/beernotfound.jpg')
 </script>
 
 <style>

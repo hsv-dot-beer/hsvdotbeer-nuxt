@@ -1,31 +1,39 @@
 <template>
   <div class="page-container">
-    <b-sidebar id="nav-sidebar" title="navigation" no-header>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <b-link v-b-toggle.nav-sidebar class="nav-link" to="/">
-            Beers
-          </b-link>
-        </li>
-        <li class="nav-item">
-          <b-link v-b-toggle.nav-sidebar class="nav-link" to="/venues">
-            Venues
-          </b-link>
-        </li>
-        <li class="nav-item">
-          <b-link v-b-toggle.nav-sidebar class="nav-link" to="/about">
-            About
-          </b-link>
-        </li>
-      </ul>
-    </b-sidebar>
+    <div id="nav-sidebar" class="nav-sidebar" :class="{ open: sidebarOpen }">
+      <div class="nav-sidebar-backdrop" @click="sidebarOpen = false" />
+      <div class="nav-sidebar-panel">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <NuxtLink class="nav-link" to="/" @click="sidebarOpen = false">
+              Beers
+            </NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink class="nav-link" to="/venues" @click="sidebarOpen = false">
+              Venues
+            </NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink class="nav-link" to="/about" @click="sidebarOpen = false">
+              About
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="header">
       <div class="container-fluid container-header">
         <nav class="navbar navbar-expand-md navbar">
-          <b-link to="/" class="navbar-brand navbar-logo">
-            <hsv-beer-logo />
-          </b-link>
-          <b-button v-b-toggle.nav-sidebar aria-label="Navigation Menu" class="menu-link md-icon-button">
+          <NuxtLink to="/" class="navbar-brand navbar-logo">
+            <HsvBeerLogo />
+          </NuxtLink>
+          <button
+            aria-label="Navigation Menu"
+            class="menu-link md-icon-button btn"
+            type="button"
+            @click="sidebarOpen = !sidebarOpen"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -39,7 +47,7 @@
             >
               <path d="M3 12h18M3 6h18M3 18h18" />
             </svg>
-          </b-button>
+          </button>
         </nav>
         <p class="text-intro lead text-center">
           Find draft beer in Huntsville
@@ -49,26 +57,14 @@
       </div>
     </div>
     <main>
-      <nuxt />
-      <venue-modal />
+      <slot />
+      <VenueModal />
     </main>
   </div>
 </template>
 
-<script>
-import HsvBeerLogo from '~/components/HsvBeerLogo.vue'
-import SearchBox from '~/components/SearchBox.vue'
-import VenueModal from '~/components/VenueModal'
-import VenueSelect from '~/components/VenueSelect.vue'
-
-export default {
-  components: {
-    HsvBeerLogo,
-    SearchBox,
-    VenueModal,
-    VenueSelect
-  }
-}
+<script setup>
+const sidebarOpen = ref(false)
 </script>
 
 <style>
@@ -127,6 +123,8 @@ nav.navbar {
   left: 1rem;
   padding: 0.5rem;
   color: #31302c;
+  background: transparent;
+  border: 0;
   border-radius: 50%;
 }
 
@@ -256,6 +254,58 @@ main {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Sidebar nav (replaces bootstrap-vue's b-sidebar) */
+.nav-sidebar {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  pointer-events: none;
+}
+
+.nav-sidebar-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.nav-sidebar-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 16rem;
+  max-width: 80%;
+  background: #fff;
+  padding: 1.5rem 0 0;
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-out;
+  overflow-y: auto;
+}
+
+.nav-sidebar.open {
+  pointer-events: auto;
+}
+
+.nav-sidebar.open .nav-sidebar-backdrop {
+  opacity: 1;
+}
+
+.nav-sidebar.open .nav-sidebar-panel {
+  transform: translateX(0);
+}
+
+.nav-sidebar .nav-link {
+  padding: 0.75rem 1.5rem;
+  color: #31302c;
+}
+
+.nav-sidebar .nav-link:hover,
+.nav-sidebar .nav-link.router-link-active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 @media (min-width: 420px) {
   html {
     font-size: 16px;
@@ -278,6 +328,12 @@ main {
   }
   .text-intro {
     padding-bottom: 1.25rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-fluid {
+    max-width: 1140px;
   }
 }
 </style>

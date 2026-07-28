@@ -5,38 +5,23 @@
   "author": "HSV.beer",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt dev",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "node .output/server/index.mjs",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "heroku-postbuild": "npm run build"
-  },
-  "lint-staged": {
-    "*.{js,vue}": "yarn lint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "lint": "eslint .",
+    "lintfix": "eslint --fix ."
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/pwa": "3.3.5",
-    "bootstrap-vue": "^2.23.1",
-    "nuxt": "^2.16.3",
-    "nuxt-webfontloader": "^1.1.0",
-    "raf": "^3.4.1"
+    "@pinia/nuxt": "^0.5.5",
+    "bootstrap": "^5.3.3",
+    "nuxt": "^4.5.1",
+    "pinia": "^2.2.2",
+    "vue": "^3.4.38",
+    "vue-router": "^4.4.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
-    "@babel/eslint-parser": "^7.19.1",
-    "@nuxtjs/eslint-config": "^12.0.0",
-    "@nuxtjs/eslint-module": "^3.1.0",
-    "eslint": "^8.35.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.2"
+    "@nuxt/eslint": "^1.16.0",
+    "eslint": "^10.8.0"
   }
 }

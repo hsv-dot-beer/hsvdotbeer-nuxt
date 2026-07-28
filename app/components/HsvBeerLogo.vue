@@ -1,47 +1,44 @@
 <template>
   <div class="hsv-beer-logo">
     <span ref="particletext" class="particletext bubbles">
-      <b-img-lazy ref="logo" class="brand-logo" src="~/assets/hsv-beer-logo.svg" alt="hsv.beer" />
-      <template v-for="p in particles">
-        <span :key="p.id" :style="p.style" class="particle" />
+      <img class="brand-logo" src="~/assets/hsv-beer-logo.svg" alt="hsv.beer" loading="lazy">
+      <template v-for="p in particles" :key="p.id">
+        <span :style="p.style" class="particle" />
       </template>
     </span>
   </div>
 </template>
 
-<script>
+<script setup>
 function rnd (m, n) {
   const mm = parseInt(m, 10)
   const nn = parseInt(n, 10)
   return Math.floor(Math.random() * (nn - mm + 1)) + mm
 }
 
-export default {
-  name: 'HsvBeerLogo',
-  computed: {
-    particles () {
-      const results = []
-      const bubblecount = 12
-      for (let i = 0; i <= bubblecount; i += 1) {
-        const size = rnd(40, 80) / 10
-        const top = rnd(0, 60)
-        const left = rnd(0, 95)
-        const delay = rnd(0, 30) / 10
-        results.push({
-          id: i,
-          style: {
-            top: `${top}%`,
-            left: `${left}%`,
-            width: `${size}px`,
-            height: `${size}px`,
-            'animation-delay': `${delay}s`
-          }
-        })
+const particles = ref([])
+
+onMounted(() => {
+  const results = []
+  const bubblecount = 12
+  for (let i = 0; i <= bubblecount; i += 1) {
+    const size = rnd(40, 80) / 10
+    const top = rnd(0, 60)
+    const left = rnd(0, 95)
+    const delay = rnd(0, 30) / 10
+    results.push({
+      id: i,
+      style: {
+        top: `${top}%`,
+        left: `${left}%`,
+        width: `${size}px`,
+        height: `${size}px`,
+        'animation-delay': `${delay}s`
       }
-      return results
-    }
+    })
   }
-}
+  particles.value = results
+})
 </script>
 
 <style>
