@@ -5,6 +5,7 @@
   "author": "HSV.beer",
   "private": true,
   "scripts": {
+    "postinstall": "nuxt prepare",
     "dev": "nuxt dev",
     "build": "nuxt build",
     "start": "node .output/server/index.mjs",

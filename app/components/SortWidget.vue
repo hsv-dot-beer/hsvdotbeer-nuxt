@@ -1,7 +1,14 @@
 <template>
-  <div class="sort">
-    <button type="button" class="sort-button btn btn-outline-light" />
-    <div class="sort-options z-3">
+  <div ref="root" class="sort" :class="{ open: sortOpen }">
+    <button
+      type="button"
+      class="sort-button btn btn-outline-light"
+      aria-label="Sort List of Beers"
+      aria-haspopup="true"
+      :aria-expanded="sortOpen ? 'true' : 'false'"
+      @click="sortOpen = !sortOpen"
+    />
+    <div class="sort-options z-3" @keydown.escape="closeSort">
       <div class="sort-options-header">
         Sort by:
       </div>
@@ -34,6 +41,21 @@ const sort = [
 ]
 const invertSort = ref(false)
 const selectedSort = ref({ name: 'Name', sort: 'name' })
+const sortOpen = ref(false)
+const root = ref(null)
+
+function closeSort () {
+  sortOpen.value = false
+}
+
+function onDocumentClick (event) {
+  if (sortOpen.value && root.value && !root.value.contains(event.target)) {
+    closeSort()
+  }
+}
+
+onMounted(() => document.addEventListener('click', onDocumentClick))
+onUnmounted(() => document.removeEventListener('click', onDocumentClick))
 
 function getOrdering () {
   let ordering = ''
@@ -65,6 +87,7 @@ function onSortChange (newSort) {
     invertSort.value = false
   }
   emit('updated', getOrdering())
+  closeSort()
 }
 </script>
 
@@ -94,7 +117,8 @@ function onSortChange (newSort) {
   background:#fffbee;
   z-index:1000;
 }
-.sort:hover .sort-options {
+.sort:hover .sort-options,
+.sort.open .sort-options {
   display:block;
 }
 .sort-options-header {
