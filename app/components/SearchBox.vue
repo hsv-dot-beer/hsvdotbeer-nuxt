@@ -364,20 +364,17 @@ nav .search-container {
   }
 
   .beer-info {
-    display:flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: 5.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
   }
 
   .beer-link {
-    width: 50%;
-    flex-basis: 100%;
+    grid-column: 1 / -1;
   }
 
   .beer-brewer, .beer-style {
-    width: 50%;
-    flex-basis: auto;
+    grid-column: 2;
   }
 
   .beer-brewer {
