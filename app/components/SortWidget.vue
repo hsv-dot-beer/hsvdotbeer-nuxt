@@ -14,6 +14,8 @@
             @click="onSortChange(s)"
           >
             {{ s.name }}
+            <span v-if="s.name === selectedSort.name" class="sort-direction" aria-hidden="true">{{ invertSort ? '▼' : '▲' }}</span>
+            <span v-if="s.name === selectedSort.name" class="visually-hidden">{{ invertSort ? ', descending' : ', ascending' }}</span>
           </button>
         </li>
       </ul>
@@ -115,6 +117,10 @@ function onSortChange (newSort) {
 }
 .sort-options ul li .sort-option.selected {
   border-left:.5rem solid #febf01;
+}
+.sort-direction {
+  float: right;
+  font-size: 0.75rem;
 }
 .sort-options ul li .sort-option:hover {
   background:rgba(0,0,0,0.1);
