@@ -66,7 +66,8 @@ export const useBeersStore = defineStore('beers', {
       }
     },
     async loadNextPage () {
-      if (!this.links.next) { return false }
+      if (!this.links.next || this.status === STATUS_LOADING) { return false }
+      this.status = STATUS_LOADING
       try {
         const data = await $fetch(this.links.next)
         this.storeResults(data)
