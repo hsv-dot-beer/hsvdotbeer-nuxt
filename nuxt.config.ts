@@ -1,3 +1,5 @@
+const googleAnalyticsId = process.env.NUXT_PUBLIC_GA_ID || 'G-9N8HXBGZD9'
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-08-01',
 
@@ -8,7 +10,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: 'https://dev.hsv.beer/api/v1/',
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://hsv-beer.fly.dev'
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://hsv-beer.fly.dev',
+      googleAnalyticsId
     }
   },
 
@@ -36,7 +39,20 @@ export default defineNuxtConfig({
         {
           innerHTML: '(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}})()',
           tagPosition: 'head'
-        }
+        },
+        ...(process.env.NODE_ENV === 'production'
+          ? [
+              {
+                src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`,
+                async: true,
+                tagPosition: 'head' as const
+              },
+              {
+                innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${googleAnalyticsId}');`,
+                tagPosition: 'head' as const
+              }
+            ]
+          : [])
       ]
     }
   },
