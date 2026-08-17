@@ -14,7 +14,7 @@
     "lintfix": "eslint --fix ."
   },
   "dependencies": {
-    "@pinia/nuxt": "^1.0.1",
+    "@pinia/nuxt": "^1.0.2",
     "bootstrap": "^5.3.3",
     "nuxt": "^4.5.2",
     "pinia": "^4.0.2",
